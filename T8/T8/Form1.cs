@@ -109,6 +109,8 @@ namespace T8
         private void button2_Click(object sender, EventArgs e)
         {
             int correct = 0;
+
+
             if (numericUpDown1.Value == Prime[0]) correct++;
             if (numericUpDown2.Value == Prime[1]) correct++;
             if (numericUpDown3.Value == Prime[2]) correct++;
