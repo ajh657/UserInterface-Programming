@@ -32,7 +32,8 @@ namespace T12
                 
                 // Talletetaan hiiren klikkauskohdan koordinaatit. Piste (0, 0)
                 // on formin työalueen vasemmassa ylä nurkassa
-                pictureBox1.Location = e.Location;
+                pictureBox1.Top = e.Y;
+                pictureBox1.Left = e.X;
 
                 // Merkitään formin työalue epäkelvoksi, jolloin saadaan aikaiseksi
                 // paint-eventin signalointi ja tämän jälkeen Paint()-metodin kutsu.
