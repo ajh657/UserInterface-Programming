@@ -83,6 +83,16 @@ namespace T16.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconOK {
+            get {
+                object obj = ResourceManager.GetObject("IconOK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MineIcon {
             get {
                 object obj = ResourceManager.GetObject("MineIcon", resourceCulture);
