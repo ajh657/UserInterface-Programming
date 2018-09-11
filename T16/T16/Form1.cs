@@ -16,12 +16,13 @@ namespace T16
     {
         private Random rnd = new Random();
         private PictureBox[,] Crd = new PictureBox[16, 16];
+        private bool gameover = false;
         public Form1()
         {
             InitializeComponent();
         }
-        
-        private void CreatePicturebox(string name,int x,int y,Image image,int crdX,int crdY)
+
+        private void CreatePicturebox(string name, int x, int y, Image image, int crdX, int crdY)
         {
             PictureBox picture = new PictureBox
             {
@@ -47,7 +48,7 @@ namespace T16
             string xnameS;
             string ynameS;
             string name;
-            
+
 
             while (Loop)
             {
@@ -97,7 +98,7 @@ namespace T16
                 label1.Text = pictureBox.Name;
             }*/
 
-                MineTest(pictureBox, false, null);
+            MineTest(pictureBox);
         }
 
         private void MineAdder()
@@ -111,11 +112,11 @@ namespace T16
                 y = rnd.Next(0, 16);
 
                 Crd[x, y].Tag = "Mine";
-                //Crd[x, y].Image = Properties.Resources.MineIcon;
+                Crd[x, y].Image = Properties.Resources.MineIcon;
             }
         }
 
-        public void MineTest(PictureBox origin, bool originB, string dir)
+        public void MineTest(PictureBox origin)
         {
             int originX = 0;
             int originY = 0;
@@ -136,16 +137,173 @@ namespace T16
                 x++;
             }
 
-            /*if (Crd[originX, originY].Tag == "Mine")
+            if (origin.Tag == "Mine")
             {
-                Crd[originX, originY].Image = Properties.Resources.MineIcon;
+                gameover = true;
             }
             else
             {
-                Crd[originX, originY].Image = Properties.Resources.IconOK;
-            }*/
+                if (origin.Tag != "ok")
+                {
+                    origin.Image = Properties.Resources.IconOK;
+                    origin.Tag = Properties.Resources.IconOK;
+                    MineSearch(originX, originY, origin);
+                }
+            }
 
 
+        }
+
+        public void MineSearch(int originX, int originY, PictureBox pictureBox)
+        {
+            bool found = false;
+            if (originY == 0 || originX == 0)
+            {
+                if (MineNear(originX, originY))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX + 1, originY))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX + 1, originY +1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX, originY + 1))
+                {
+                    found = true;
+
+                }
+
+            }
+            else
+            {
+                if (MineNear(originX, originY))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX - 1, originY))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX - 1, originY - 1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX, originY - 1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX + 1, originY - 1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX + 1, originY))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX + 1, originY - 1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX, originY - 1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX - 1, originY - 1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX - 1, originY + 1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX, originY + 1))
+                {
+                    found = true;
+
+                }
+
+                if (MineNear(originX + 1, originY + 1))
+                {
+                    found = true;
+
+                }
+            }
+        }
+
+        private bool MineNear(int originX, int originY)
+        {
+            if (originX == 0 || originY == 0)
+            {
+                if (Crd[originX, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX, originY].Tag == "Mine")
+                {
+                    return true;
+                }
+                else
+                {
+                    Crd[originX, originY].Image = Properties.Resources.IconOK;
+                    Crd[originX, originY].Tag = "ok";
+                    return false;
+
+                }
+            }
+            else if(originX == 0|| originY != 0)
+            {
+                if (Crd[originX, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX, originY].Tag == "Mine" || Crd[originX, originY + 1].Tag == "Mine" || Crd[originX +1, originY+ 1].Tag == "Mine")
+                {
+                    return true;
+                }
+                else
+                {
+                    Crd[originX, originY].Image = Properties.Resources.IconOK;
+                    Crd[originX, originY].Tag = "ok";
+                    return false;
+
+                }
+            }
+            else
+            {
+                if (Crd[originX - 1, originY].Tag == "Mine" || Crd[originX - 1, originY - 1].Tag == "Mine" || Crd[originX, originY - 1].Tag == "Mine" || Crd[originX - 1, originY + 1].Tag == "Mine" || Crd[originX, originY + 1].Tag == "Mine" || Crd[originX - 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX, originY + 1].Tag == "Mine" || Crd[originX - 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX + 1, originY - 1].Tag == "Mine")
+                {
+                    return true;
+                }
+                else
+                {
+                    Crd[originX, originY].Image = Properties.Resources.IconOK;
+                    Crd[originX, originY].Tag = "ok";
+                    return false;
+
+                }
+            }
         }
     }
 }
