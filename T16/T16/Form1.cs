@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +14,12 @@ using System.Threading;
 
 namespace T16
 {
+
     public partial class Form1 : Form
     {
         private Random rnd = new Random();
         private PictureBox[,] Crd = new PictureBox[16, 16];
+        private int[,] Num = new int[16, 16];
         private bool gameover = false;
         public Form1()
         {
@@ -113,7 +117,100 @@ namespace T16
 
                 Crd[x, y].Tag = "Mine";
                 Crd[x, y].Image = Properties.Resources.MineIcon;
+                NumAdder(x, y);
             }
+        }
+
+        private void NumAdder(int x, int y)
+        {
+            if (x == 0 && y == 0)
+            {
+                Num[x, y]++;
+                Num[x, y + 1]++;
+                Num[x + 1, y]++;
+                Num[x + 1, y + 1]++;
+            }
+            else if (x > 0 && y == 0 && x < 15)
+            {
+                Num[x, y]++;
+                Num[x - 1, y]++;
+                Num[x - 1, y + 1]++;
+                Num[x, y + 1]++;
+                Num[x + 1, y + 1]++;
+                Num[x + 1, y]++;
+            }
+            else if (x == 15 && y == 0)
+            {
+                Num[x, y]++;
+                Num[x - 1, y]++;
+                Num[x - 1, y + 1]++;
+                Num[x, y + 1]++;
+            }
+            else if (x == 15 && y < 15 && y > 0)
+            {
+                Num[x, y]++;
+                Num[x - 1, y]++;
+                Num[x - 1, y + 1]++;
+                Num[x, y + 1]++;
+                Num[x, y - 1]++;
+                Num[x - 1, y - 1]++;
+            }
+            else if (x == 15 && y == 15)
+            {
+                Num[x, y]++;
+                Num[x - 1, y]++;
+                Num[x, y - 1]++;
+                Num[x - 1, y - 1]++;
+            }
+            else if (x < 15 && y == 15 && x > 0)
+            {
+                Num[x, y]++;
+                Num[x - 1, y]++;
+                Num[x + 1, y]++;
+                Num[x + 1, y - 1]++;
+                Num[x, y - 1]++;
+                Num[x - 1, y - 1]++;
+            }
+            else if (x == 0 && y == 15)
+            {
+                Num[x, y]++;
+                Num[x + 1, y]++;
+                Num[x + 1, y - 1]++;
+                Num[x, y - 1]++;
+            }
+            else if (x == 0 && y > 0 && y < 15)
+            {
+                Num[x, y + 1]++;
+                Num[x + 1, y + 1]++;
+                Num[x + 1, y]++;
+                Num[x + 1, y - 1]++;
+                Num[x, y - 1]++;
+            }
+            else
+            {
+                Num[x, y]++;
+                Num[x - 1, y]++;
+                Num[x - 1, y + 1]++;
+                Num[x, y + 1]++;
+                Num[x + 1, y + 1]++;
+                Num[x + 1, y]++;
+                Num[x + 1, y - 1]++;
+                Num[x, y - 1]++;
+                Num[x - 1, y - 1]++;
+            }
+        }
+
+        private void test(int originX, int originY, PictureBox pictureBox)
+        {
+
+            for (int x = originX-1; x >= originX+1;)
+            {
+                for (int Y = originY - 1; Y >= originY + 1;)
+                {
+
+                }
+            }
+
         }
 
         public void MineTest(PictureBox origin)
@@ -157,112 +254,151 @@ namespace T16
         public void MineSearch(int originX, int originY, PictureBox pictureBox)
         {
             bool found = false;
-            if (originY == 0 || originX == 0)
+            int MinesFound = 0;
+            if (originY == 0 && originX == 0)
             {
                 if (MineNear(originX, originY))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX + 1, originY))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX + 1, originY +1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX, originY + 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
+            }
+            else if(originY > 0 && originX == 0)
+            {
+                if (MineNear(originX, originY))
+                {
+                    found = true;
+                    MinesFound++;
+                }
+
+                if (MineNear(originX + 1, originY))
+                {
+                    found = true;
+                    MinesFound++;
+                }
+
+                if (MineNear(originX + 1, originY + 1))
+                {
+                    found = true;
+                    MinesFound++;
+                }
+
+                if (MineNear(originX, originY + 1))
+                {
+                    found = true;
+                    MinesFound++;
+                }
+
+                if (MineNear(originX, originY -1))
+                {
+                    found = true;
+                    MinesFound++;
+                }
+
+                if (MineNear(originX + 1, originY - 1))
+                {
+                    found = true;
+                    MinesFound++;
+                }
             }
             else
             {
                 if (MineNear(originX, originY))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX - 1, originY))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX - 1, originY - 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX, originY - 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX + 1, originY - 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX + 1, originY))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX + 1, originY - 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX, originY - 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX - 1, originY - 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX - 1, originY + 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX, originY + 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
 
                 if (MineNear(originX + 1, originY + 1))
                 {
                     found = true;
-
+                    MinesFound++;
                 }
             }
         }
 
         private bool MineNear(int originX, int originY)
         {
-            if (originX == 0 || originY == 0)
+            if (originX == 0 && originY == 0)
             {
                 if (Crd[originX, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX, originY].Tag == "Mine")
                 {
@@ -276,9 +412,9 @@ namespace T16
 
                 }
             }
-            else if(originX == 0|| originY != 0)
+            else if(originX == 0 && originY > 0)
             {
-                if (Crd[originX, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX, originY].Tag == "Mine" || Crd[originX, originY + 1].Tag == "Mine" || Crd[originX +1, originY+ 1].Tag == "Mine")
+                if (Crd[originX, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX, originY].Tag == "Mine" || Crd[originX, originY + 1].Tag == "Mine" || Crd[originX +1, originY+ 1].Tag == "Mine" || Crd[originX, originY - 1].Tag == "Mine" || Crd[originX + 1, originY - 1].Tag == "Mine")
                 {
                     return true;
                 }
