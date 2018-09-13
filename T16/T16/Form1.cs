@@ -21,6 +21,7 @@ namespace T16
         private PictureBox[,] Crd = new PictureBox[16, 16];
         private int[,] Num = new int[16, 16];
         private bool gameover = false;
+        private bool SearchLoop = true;
         public Form1()
         {
             InitializeComponent();
@@ -102,6 +103,8 @@ namespace T16
                 label1.Text = pictureBox.Name;
             }*/
 
+            SearchLoop = true;
+
             MineTest(pictureBox);
         }
 
@@ -118,6 +121,7 @@ namespace T16
                 Crd[x, y].Tag = "Mine";
                 Crd[x, y].Image = Properties.Resources.MineIcon;
                 NumAdder(x, y);
+                NumDis(x, y);
             }
         }
 
@@ -200,10 +204,89 @@ namespace T16
             }
         }
 
+        private void NumDis(int x, int y)
+        {
+            if (x == 0 && y == 0)
+            {
+                if (Crd[x, y].Tag != "Mine") Crd[x, y].Tag = Num[x, y].ToString();
+                if (Crd[x, y + 1].Tag != "Mine") Crd[x, y + 1].Tag = Num[x, y + 1].ToString();
+                if (Crd[x + 1, y].Tag != "Mine") Crd[x + 1, y].Tag = Num[x + 1, y].ToString();
+                if (Crd[x + 1, y + 1].Tag != "Mine") Crd[x + 1, y + 1].Tag = Num[x + 1, y + 1].ToString();
+            }
+            else if (x > 0 && y == 0 && x < 15)
+            {
+                if (Crd[x, y].Tag != "Mine") Crd[x, y].Tag = Num[x, y].ToString();
+                if (Crd[x - 1, y].Tag != "Mine") Crd[x - 1, y].Tag = Num[x - 1, y].ToString();
+                if (Crd[x - 1, y + 1].Tag != "Mine") Crd[x - 1, y + 1].Tag = Num[x - 1, y + 1].ToString();
+                if (Crd[x, y + 1].Tag != "Mine") Crd[x, y + 1].Tag = Num[x, y + 1].ToString();
+                if (Crd[x + 1, y + 1].Tag != "Mine") Crd[x + 1, y + 1].Tag = Num[x + 1, y + 1].ToString();
+                if (Crd[x + 1, y].Tag != "Mine") Crd[x + 1, y].Tag = Num[x + 1, y].ToString();
+            }
+            else if (x == 15 && y == 0)
+            {
+                if (Crd[x, y].Tag != "Mine") Crd[x, y].Tag = Num[x, y].ToString();
+                if (Crd[x - 1, y].Tag != "Mine") Crd[x - 1, y].Tag = Num[x - 1, y].ToString();
+                if (Crd[x - 1, y + 1].Tag != "Mine") Crd[x - 1, y + 1].Tag = Num[x - 1, y + 1].ToString();
+                if (Crd[x, y + 1].Tag != "Mine") Crd[x, y + 1].Tag = Num[x, y + 1].ToString();
+            }
+            else if (x == 15 && y < 15 && y > 0)
+            {
+                if (Crd[x, y].Tag != "Mine") Crd[x, y].Tag = Num[x, y].ToString();
+                if (Crd[x, y].Tag != "Mine") Crd[x - 1, y].Tag = Num[x - 1, y].ToString();
+                if (Crd[x, y].Tag != "Mine") Crd[x - 1, y + 1].Tag = Num[x - 1, y + 1].ToString();
+                if (Crd[x, y + 1].Tag != "Mine") Crd[x, y + 1].Tag = Num[x, y + 1].ToString();
+                if (Crd[x, y - 1].Tag != "Mine") Crd[x, y - 1].Tag = Num[x, y - 1].ToString();
+                if (Crd[x - 1, y - 1].Tag != "Mine") Crd[x - 1, y - 1].Tag = Num[x - 1, y - 1].ToString();
+            }
+            else if (x == 15 && y == 15)
+            {
+                if (Crd[x, y].Tag != "Mine") Crd[x, y].Tag = Num[x, y].ToString();
+                if (Crd[x - 1, y].Tag != "Mine") Crd[x - 1, y].Tag = Num[x - 1, y].ToString();
+                if (Crd[x, y - 1].Tag != "Mine") Crd[x, y - 1].Tag = Num[x, y - 1].ToString();
+                if (Crd[x - 1, y - 1].Tag != "Mine") Crd[x - 1, y - 1].Tag = Num[x - 1, y - 1].ToString();
+            }
+            else if (x < 15 && y == 15 && x > 0)
+            {
+                if (Crd[x, y].Tag != "Mine") Crd[x, y].Tag = Num[x, y].ToString();
+                if (Crd[x - 1, y].Tag != "Mine") Crd[x - 1, y].Tag = Num[x - 1, y].ToString();
+                if (Crd[x + 1, y].Tag != "Mine") Crd[x + 1, y].Tag = Num[x + 1, y].ToString();
+                if (Crd[x + 1, y - 1].Tag != "Mine") Crd[x + 1, y - 1].Tag = Num[x + 1, y - 1].ToString();
+                if (Crd[x, y - 1].Tag != "Mine") Crd[x, y - 1].Tag = Num[x, y - 1].ToString();
+                if (Crd[x - 1, y - 1].Tag != "Mine") Crd[x - 1, y - 1].Tag = Num[x - 1, y - 1].ToString();
+            }
+            else if (x == 0 && y == 15)
+            {
+                if (Crd[x, y].Tag != "Mine") Crd[x, y].Tag = Num[x, y].ToString();
+                if (Crd[x + 1, y].Tag != "Mine") Crd[x + 1, y].Tag = Num[x + 1, y].ToString();
+                if (Crd[x + 1, y - 1].Tag != "Mine") Crd[x + 1, y - 1].Tag = Num[x + 1, y - 1].ToString();
+                if (Crd[x, y - 1].Tag != "Mine") Crd[x, y - 1].Tag = Num[x, y - 1].ToString();
+            }
+            else if (x == 0 && y > 0 && y < 15)
+            {
+                if (Crd[x, y + 1].Tag != "Mine") Crd[x, y + 1].Tag = Num[x, y + 1].ToString();
+                if (Crd[x + 1, y + 1].Tag != "Mine") Crd[x + 1, y + 1].Tag = Num[x + 1, y + 1].ToString();
+                if (Crd[x + 1, y].Tag != "Mine") Crd[x + 1, y].Tag = Num[x + 1, y].ToString();
+                if (Crd[x + 1, y - 1].Tag != "Mine") Crd[x + 1, y - 1].Tag = Num[x + 1, y - 1].ToString();
+                if (Crd[x, y - 1].Tag != "Mine") Crd[x, y - 1].Tag = Num[x, y - 1].ToString();
+            }
+            else
+            {
+                if (Crd[x, y].Tag != "Mine") Crd[x, y].Tag = Num[x, y].ToString();
+                if (Crd[x - 1, y].Tag != "Mine") Crd[x - 1, y].Tag = Num[x - 1, y].ToString();
+                if (Crd[x - 1, y + 1].Tag != "Mine") Crd[x - 1, y + 1].Tag = Num[x - 1, y + 1].ToString();
+                if (Crd[x, y + 1].Tag != "Mine") Crd[x, y + 1].Tag = Num[x, y + 1].ToString();
+                if (Crd[x + 1, y + 1].Tag != "Mine") Crd[x + 1, y + 1].Tag = Num[x + 1, y + 1].ToString();
+                if (Crd[x + 1, y].Tag != "Mine") Crd[x + 1, y].Tag = Num[x + 1, y].ToString();
+                if (Crd[x + 1, y - 1].Tag != "Mine") Crd[x + 1, y - 1].Tag = Num[x + 1, y - 1].ToString();
+                if (Crd[x, y - 1].Tag != "Mine") Crd[x, y - 1].Tag = Num[x, y - 1].ToString();
+                if (Crd[x - 1, y - 1].Tag != "Mine") Crd[x - 1, y - 1].Tag = Num[x - 1, y - 1].ToString();
+            }
+        }
+
         private void test(int originX, int originY, PictureBox pictureBox)
         {
 
-            for (int x = originX-1; x >= originX+1;)
+            for (int x = originX - 1; x >= originX + 1;)
             {
                 for (int Y = originY - 1; Y >= originY + 1;)
                 {
@@ -243,7 +326,6 @@ namespace T16
                 if (origin.Tag != "ok")
                 {
                     origin.Image = Properties.Resources.IconOK;
-                    origin.Tag = Properties.Resources.IconOK;
                     MineSearch(originX, originY, origin);
                 }
             }
@@ -253,191 +335,534 @@ namespace T16
 
         public void MineSearch(int originX, int originY, PictureBox pictureBox)
         {
-            bool found = false;
-            int MinesFound = 0;
-            if (originY == 0 && originX == 0)
+            bool ok = false;
+
+            if (originX > 15 || originY > 15 || originY > 0 || originX > 0) SearchLoop = false;
+
+            if (SearchLoop)
             {
-                if (MineNear(originX, originY))
+                if (originX == 0 && originY == 0)
                 {
-                    found = true;
-                    MinesFound++;
-                }
+                    if (Crd[originX, originY + 1].Tag != "Mine" && Crd[originX, originY + 1].Tag != null)
+                    {
 
-                if (MineNear(originX + 1, originY))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY + 1, pictureBox);
+                        Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
+                    }
 
-                if (MineNear(originX + 1, originY +1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    if (Crd[originX + 1, originY].Tag != "Mine" && Crd[originX, originY + 1].Tag != null)
+                    {
 
-                if (MineNear(originX, originY + 1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY, pictureBox);
+                        Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
+                    }
 
-            }
-            else if(originY > 0 && originX == 0)
-            {
-                if (MineNear(originX, originY))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    if (Crd[originX + 1, originY + 1].Tag != "Mine" && Crd[originX + 1, originY + 1].Tag != null)
+                    {
 
-                if (MineNear(originX + 1, originY))
-                {
-                    found = true;
-                    MinesFound++;
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY + 1, pictureBox);
+                        Crd[originX + 1, originY + 1].Image = Properties.Resources.IconOK;
+                    }
                 }
+                else if (originX > 0 && originY == 0 && originX < 15)
+                {
+                    /*
+                    Num[originX, originY]++;
+                    Num[originX - 1, originY]++;
+                    Num[originX - 1, originY + 1]++;
+                    Num[originX, originY + 1]++;
+                    Num[originX + 1, originY + 1]++;
+                    Num[originX + 1, originY]++;
+                    */
 
-                if (MineNear(originX + 1, originY + 1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    if (Crd[originX - 1, originY].Tag != "Mine" && Crd[originX - 1, originY].Tag != null)
+                    {
 
-                if (MineNear(originX, originY + 1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY, pictureBox);
+                        Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
+                    }
 
-                if (MineNear(originX, originY -1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    if (Crd[originX - 1, originY + 1].Tag != "Mine" && Crd[originX - 1, originY + 1].Tag != null)
+                    {
 
-                if (MineNear(originX + 1, originY - 1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
-            }
-            else
-            {
-                if (MineNear(originX, originY))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY + 1, pictureBox);
+                        Crd[originX - 1, originY + 1].Image = Properties.Resources.IconOK;
+                    }
 
-                if (MineNear(originX - 1, originY))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    if (Crd[originX, originY + 1].Tag != "Mine" && Crd[originX - 1, originY + 1].Tag != null)
+                    {
 
-                if (MineNear(originX - 1, originY - 1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY + 1, pictureBox);
+                        Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
+                    }
 
-                if (MineNear(originX, originY - 1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    if (Crd[originX + 1, originY + 1].Tag != "Mine" && Crd[originX + 1, originY + 1].Tag != null)
+                    {
 
-                if (MineNear(originX + 1, originY - 1))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY + 1, pictureBox);
+                        Crd[originX + 1, originY + 1].Image = Properties.Resources.IconOK;
+                    }
 
-                if (MineNear(originX + 1, originY))
-                {
-                    found = true;
-                    MinesFound++;
-                }
+                    if (Crd[originX + 1, originY].Tag != "Mine" && Crd[originX + 1, originY].Tag != null)
+                    {
 
-                if (MineNear(originX + 1, originY - 1))
-                {
-                    found = true;
-                    MinesFound++;
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY, pictureBox);
+                        Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
+                    }
                 }
-
-                if (MineNear(originX, originY - 1))
+                else if (originX == 15 && originY == 0)
                 {
-                    found = true;
-                    MinesFound++;
+                    /*
+                    Num[originX, originY]++;
+                    Num[originX - 1, originY]++;
+                    Num[originX - 1, originY + 1]++;
+                    Num[originX, originY + 1]++; 
+                    */
+
+                    if (Crd[originX - 1, originY].Tag != "Mine" && Crd[originX - 1, originY].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY, pictureBox);
+                        Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX - 1, originY + 1].Tag != "Mine" && Crd[originX - 1, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY + 1, pictureBox);
+                        Crd[originX - 1, originY + 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY + 1].Tag != "Mine" && Crd[originX, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY + 1, pictureBox);
+                        Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
+                    }
                 }
-
-                if (MineNear(originX - 1, originY - 1))
+                else if (originX == 15 && originY < 15 && originY > 0)
                 {
-                    found = true;
-                    MinesFound++;
+                    /*
+                    Num[originX, originY]++;
+                    Num[originX - 1, originY]++;
+                    Num[originX - 1, originY + 1]++;
+                    Num[originX, originY + 1]++;
+                    Num[originX, originY - 1]++;
+                    Num[originX - 1, originY - 1]++;
+                    */
+
+                    if (Crd[originX - 1, originY].Tag != "Mine" && Crd[originX - 1, originY].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY, pictureBox);
+                        Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX - 1, originY + 1].Tag != "Mine" && Crd[originX - 1, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY + 1, pictureBox);
+                        Crd[originX - 1, originY + 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY + 1].Tag != "Mine" && Crd[originX, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY + 1, pictureBox);
+                        Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY - 1].Tag != "Mine" && Crd[originX, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY - 1, pictureBox);
+                        Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX - 1, originY - 1].Tag != "Mine" && Crd[originX - 1, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY - 1, pictureBox);
+                        Crd[originX - 1, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
                 }
-
-                if (MineNear(originX - 1, originY + 1))
+                else if (originX == 15 && originY == 15)
                 {
-                    found = true;
-                    MinesFound++;
+                    /* Num[originX, originY]++;
+                    Num[originX - 1, originY]++;
+                    Num[originX, originY - 1]++;
+                    Num[originX - 1, originY - 1]++; */
+
+                    if (Crd[originX - 1, originY].Tag != "Mine" && Crd[originX - 1, originY].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY, pictureBox);
+                        Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY - 1].Tag != "Mine" && Crd[originX, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY - 1, pictureBox);
+                        Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX - 1, originY - 1].Tag != "Mine" && Crd[originX - 1, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY - 1, pictureBox);
+                        Crd[originX - 1, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
                 }
-
-                if (MineNear(originX, originY + 1))
+                else if (originX < 15 && originY == 15 && originX > 0)
                 {
-                    found = true;
-                    MinesFound++;
+                    /* Num[originX, originY]++;
+                    Num[originX - 1, originY]++;
+                    Num[originX + 1, originY]++;
+                    Num[originX + 1, originY - 1]++;
+                    Num[originX, originY - 1]++;
+                    Num[originX - 1, originY - 1]++; */
+
+                    if (Crd[originX - 1, originY].Tag != "Mine" && Crd[originX - 1, originY].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY, pictureBox);
+                        Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY].Tag != "Mine" && Crd[originX - 1, originY].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY, pictureBox);
+                        Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY - 1].Tag != "Mine" && Crd[originX + 1, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY - 1, pictureBox);
+                        Crd[originX + 1, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY - 1].Tag != "Mine" && Crd[originX, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY - 1, pictureBox);
+                        Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX - 1, originY - 1].Tag != "Mine" && Crd[originX - 1, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY - 1, pictureBox);
+                        Crd[originX - 1, originY - 1].Image = Properties.Resources.IconOK;
+                    }
                 }
-
-                if (MineNear(originX + 1, originY + 1))
+                else if (originX == 0 && originY == 15)
                 {
-                    found = true;
-                    MinesFound++;
+                    /*
+                    Num[originX, originY]++;
+                    Num[originX + 1, originY]++;
+                    Num[originX + 1, originY - 1]++;
+                    Num[originX, originY - 1]++;
+                    */
+
+                    if (Crd[originX + 1, originY].Tag != "Mine" && Crd[originX + 1, originY].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY, pictureBox);
+                        Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY - 1].Tag != "Mine" && Crd[originX + 1, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY - 1, pictureBox);
+                        Crd[originX + 1, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY - 1].Tag != "Mine" && Crd[originX, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY - 1, pictureBox);
+                        Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
                 }
-            }
-        }
-
-        private bool MineNear(int originX, int originY)
-        {
-            if (originX == 0 && originY == 0)
-            {
-                if (Crd[originX, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX, originY].Tag == "Mine")
+                else if (originX == 0 && originY > 0 && originY < 15)
                 {
-                    return true;
+                    /* Num[originX, originY + 1]++;
+                    Num[originX + 1, originY + 1]++;
+                    Num[originX + 1, originY]++;
+                    Num[originX + 1, originY - 1]++;
+                    Num[originX, originY - 1]++;*/
+
+                    if (Crd[originX, originY + 1].Tag != "Mine" && Crd[originX, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY + 1, pictureBox);
+                        Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY + 1].Tag != "Mine" && Crd[originX + 1, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY + 1, pictureBox);
+                        Crd[originX + 1, originY + 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY].Tag != "Mine" && Crd[originX + 1, originY].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY, pictureBox);
+                        Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY - 1].Tag != "Mine" && Crd[originX + 1, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY - 1, pictureBox);
+                        Crd[originX + 1, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY - 1].Tag != "Mine" && Crd[originX, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY - 1, pictureBox);
+                        Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
+                    }
                 }
                 else
                 {
-                    Crd[originX, originY].Image = Properties.Resources.IconOK;
-                    Crd[originX, originY].Tag = "ok";
-                    return false;
+                    /*
+                    Num[originX, originY]++;
+                    Num[originX - 1, originY]++;
+                    Num[originX - 1, originY + 1]++;
+                    Num[originX, originY + 1]++;
+                    Num[originX + 1, originY + 1]++;
+                    Num[originX + 1, originY]++;
+                    Num[originX + 1, originY - 1]++;
+                    Num[originX, originY - 1]++;
+                    Num[originX - 1, originY - 1]++;
+                     */
 
-                }
-            }
-            else if(originX == 0 && originY > 0)
-            {
-                if (Crd[originX, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX, originY].Tag == "Mine" || Crd[originX, originY + 1].Tag == "Mine" || Crd[originX +1, originY+ 1].Tag == "Mine" || Crd[originX, originY - 1].Tag == "Mine" || Crd[originX + 1, originY - 1].Tag == "Mine")
-                {
-                    return true;
-                }
-                else
-                {
-                    Crd[originX, originY].Image = Properties.Resources.IconOK;
-                    Crd[originX, originY].Tag = "ok";
-                    return false;
+                    if (Crd[originX - 1, originY].Tag != "Mine" && Crd[originX - 1, originY].Tag != null)
+                    {
 
-                }
-            }
-            else
-            {
-                if (Crd[originX - 1, originY].Tag == "Mine" || Crd[originX - 1, originY - 1].Tag == "Mine" || Crd[originX, originY - 1].Tag == "Mine" || Crd[originX - 1, originY + 1].Tag == "Mine" || Crd[originX, originY + 1].Tag == "Mine" || Crd[originX - 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY + 1].Tag == "Mine" || Crd[originX, originY + 1].Tag == "Mine" || Crd[originX - 1, originY + 1].Tag == "Mine" || Crd[originX + 1, originY].Tag == "Mine" || Crd[originX + 1, originY - 1].Tag == "Mine")
-                {
-                    return true;
-                }
-                else
-                {
-                    Crd[originX, originY].Image = Properties.Resources.IconOK;
-                    Crd[originX, originY].Tag = "ok";
-                    return false;
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY, pictureBox);
+                        Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
+                    }
 
+                    if (Crd[originX - 1, originY + 1].Tag != "Mine" && Crd[originX - 1, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY + 1, pictureBox);
+                        Crd[originX - 1, originY + 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY + 1].Tag != "Mine" && Crd[originX, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY + 1, pictureBox);
+                        Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY + 1].Tag != "Mine" && Crd[originX + 1, originY + 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY + 1, pictureBox);
+                        Crd[originX + 1, originY + 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY].Tag != "Mine" && Crd[originX + 1, originY].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY, pictureBox);
+                        Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX + 1, originY - 1].Tag != "Mine" && Crd[originX + 1, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX + 1, originY - 1, pictureBox);
+                        Crd[originX + 1, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX, originY - 1].Tag != "Mine" && Crd[originX, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX, originY - 1, pictureBox);
+                        Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
+                    }
+
+                    if (Crd[originX - 1, originY - 1].Tag != "Mine" && Crd[originX - 1, originY - 1].Tag != null)
+                    {
+
+                    }
+                    else
+                    {
+                        ok = true;
+                        MineSearch(originX - 1, originY - 1, pictureBox);
+                        Crd[originX - 1, originY - 1].Image = Properties.Resources.IconOK;
+                    }
                 }
             }
         }
