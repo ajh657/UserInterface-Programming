@@ -21,7 +21,7 @@ namespace T16
         private PictureBox[,] Crd = new PictureBox[16, 16];
         private int[,] Num = new int[16, 16];
         private bool gameover = false;
-        private bool SearchLoop = true;
+        private int Nest;
         public Form1()
         {
             InitializeComponent();
@@ -102,8 +102,6 @@ namespace T16
             {
                 label1.Text = pictureBox.Name;
             }*/
-
-            SearchLoop = true;
 
             MineTest(pictureBox);
         }
@@ -296,7 +294,7 @@ namespace T16
 
         }
 
-        public void MineTest(PictureBox origin)
+        private void MineTest(PictureBox origin)
         {
             int originX = 0;
             int originY = 0;
@@ -326,18 +324,27 @@ namespace T16
                 if (origin.Tag != "ok")
                 {
                     origin.Image = Properties.Resources.IconOK;
-                    MineSearch(originX, originY, origin);
+                    MineSearchBeta(originX, originY, origin);
                 }
             }
 
 
         }
 
-        public void MineSearch(int originX, int originY, PictureBox pictureBox)
+        private void MineSearchAlpha(int originX, int originY, PictureBox pictureBox)
         {
+
+            bool SearchLoop = true;
+
+            Nest++;
+
             bool ok = false;
 
-            if (originX > 15 || originY > 15 || originY > 0 || originX > 0) SearchLoop = false;
+            if (originY > 15 || originX > 15 || originX < 0|| originY < 0) SearchLoop = false;
+
+            if (Crd[originX, originY].Tag == "Mine") SearchLoop = false;
+
+            if (Nest == 99) SearchLoop = false;
 
             if (SearchLoop)
             {
@@ -350,7 +357,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY + 1, pictureBox);
+                        MineSearchAlpha(originX, originY + 1, pictureBox);
                         Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -361,7 +368,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY, pictureBox);
+                        MineSearchAlpha(originX + 1, originY, pictureBox);
                         Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -372,7 +379,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY + 1, pictureBox);
+                        MineSearchAlpha(originX + 1, originY + 1, pictureBox);
                         Crd[originX + 1, originY + 1].Image = Properties.Resources.IconOK;
                     }
                 }
@@ -394,7 +401,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY, pictureBox);
+                        MineSearchAlpha(originX - 1, originY, pictureBox);
                         Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -405,7 +412,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY + 1, pictureBox);
+                        MineSearchAlpha(originX - 1, originY + 1, pictureBox);
                         Crd[originX - 1, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -416,7 +423,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY + 1, pictureBox);
+                        MineSearchAlpha(originX, originY + 1, pictureBox);
                         Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -427,7 +434,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY + 1, pictureBox);
+                        MineSearchAlpha(originX + 1, originY + 1, pictureBox);
                         Crd[originX + 1, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -438,7 +445,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY, pictureBox);
+                        MineSearchAlpha(originX + 1, originY, pictureBox);
                         Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
                     }
                 }
@@ -458,7 +465,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY, pictureBox);
+                        MineSearchAlpha(originX - 1, originY, pictureBox);
                         Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -469,7 +476,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY + 1, pictureBox);
+                        MineSearchAlpha(originX - 1, originY + 1, pictureBox);
                         Crd[originX - 1, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -480,7 +487,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY + 1, pictureBox);
+                        MineSearchAlpha(originX, originY + 1, pictureBox);
                         Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
                     }
                 }
@@ -502,7 +509,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY, pictureBox);
+                        MineSearchAlpha(originX - 1, originY, pictureBox);
                         Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -513,7 +520,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY + 1, pictureBox);
+                        MineSearchAlpha(originX - 1, originY + 1, pictureBox);
                         Crd[originX - 1, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -524,7 +531,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY + 1, pictureBox);
+                        MineSearchAlpha(originX, originY + 1, pictureBox);
                         Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -535,7 +542,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY - 1, pictureBox);
+                        MineSearchAlpha(originX, originY - 1, pictureBox);
                         Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -546,7 +553,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY - 1, pictureBox);
+                        MineSearchAlpha(originX - 1, originY - 1, pictureBox);
                         Crd[originX - 1, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -565,7 +572,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY, pictureBox);
+                        MineSearchAlpha(originX - 1, originY, pictureBox);
                         Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -576,7 +583,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY - 1, pictureBox);
+                        MineSearchAlpha(originX, originY - 1, pictureBox);
                         Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -587,7 +594,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY - 1, pictureBox);
+                        MineSearchAlpha(originX - 1, originY - 1, pictureBox);
                         Crd[originX - 1, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -608,7 +615,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY, pictureBox);
+                        MineSearchAlpha(originX - 1, originY, pictureBox);
                         Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -619,7 +626,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY, pictureBox);
+                        MineSearchAlpha(originX + 1, originY, pictureBox);
                         Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -630,7 +637,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY - 1, pictureBox);
+                        MineSearchAlpha(originX + 1, originY - 1, pictureBox);
                         Crd[originX + 1, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -641,7 +648,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY - 1, pictureBox);
+                        MineSearchAlpha(originX, originY - 1, pictureBox);
                         Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -652,7 +659,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY - 1, pictureBox);
+                        MineSearchAlpha(originX - 1, originY - 1, pictureBox);
                         Crd[originX - 1, originY - 1].Image = Properties.Resources.IconOK;
                     }
                 }
@@ -672,7 +679,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY, pictureBox);
+                        MineSearchAlpha(originX + 1, originY, pictureBox);
                         Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -683,7 +690,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY - 1, pictureBox);
+                        MineSearchAlpha(originX + 1, originY - 1, pictureBox);
                         Crd[originX + 1, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -694,7 +701,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY - 1, pictureBox);
+                        MineSearchAlpha(originX, originY - 1, pictureBox);
                         Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -714,7 +721,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY + 1, pictureBox);
+                        MineSearchAlpha(originX, originY + 1, pictureBox);
                         Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -725,7 +732,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY + 1, pictureBox);
+                        MineSearchAlpha(originX + 1, originY + 1, pictureBox);
                         Crd[originX + 1, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -736,7 +743,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY, pictureBox);
+                        MineSearchAlpha(originX + 1, originY, pictureBox);
                         Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -747,7 +754,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY - 1, pictureBox);
+                        MineSearchAlpha(originX + 1, originY - 1, pictureBox);
                         Crd[originX + 1, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -758,7 +765,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY - 1, pictureBox);
+                        MineSearchAlpha(originX, originY - 1, pictureBox);
                         Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
                     }
                 }
@@ -783,7 +790,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY, pictureBox);
+                        MineSearchAlpha(originX - 1, originY, pictureBox);
                         Crd[originX - 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -794,7 +801,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY + 1, pictureBox);
+                        MineSearchAlpha(originX - 1, originY + 1, pictureBox);
                         Crd[originX - 1, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -805,7 +812,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY + 1, pictureBox);
+                        MineSearchAlpha(originX, originY + 1, pictureBox);
                         Crd[originX, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -816,7 +823,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY + 1, pictureBox);
+                        MineSearchAlpha(originX + 1, originY + 1, pictureBox);
                         Crd[originX + 1, originY + 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -827,7 +834,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY, pictureBox);
+                        MineSearchAlpha(originX + 1, originY, pictureBox);
                         Crd[originX + 1, originY].Image = Properties.Resources.IconOK;
                     }
 
@@ -838,7 +845,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX + 1, originY - 1, pictureBox);
+                        MineSearchAlpha(originX + 1, originY - 1, pictureBox);
                         Crd[originX + 1, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -849,7 +856,7 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX, originY - 1, pictureBox);
+                        MineSearchAlpha(originX, originY - 1, pictureBox);
                         Crd[originX, originY - 1].Image = Properties.Resources.IconOK;
                     }
 
@@ -860,10 +867,49 @@ namespace T16
                     else
                     {
                         ok = true;
-                        MineSearch(originX - 1, originY - 1, pictureBox);
+                        MineSearchAlpha(originX - 1, originY - 1, pictureBox);
                         Crd[originX - 1, originY - 1].Image = Properties.Resources.IconOK;
                     }
                 }
+            }
+        }
+
+        private void MineSearchBeta(int originX, int originY, PictureBox pictureBox)
+        {
+            int Lx = 0, Ly = 0;
+            bool MineFound = false;
+            bool Looped = false;
+            if (originX > 0 || originX < 15 || originY < 0 || originX < 15)
+            {
+                Looped = true;
+                for (int i = originX - 1; i <= originX + 1 ; i++)
+                {
+                    for (int j = originY - 1; j <= originY + 1; j++)
+                    {
+                        if (Lx != 0 && Ly != 0 && Crd[i,j].Tag != "Mine")
+                        {
+                            Lx = i;
+                            Ly = j;
+                        }
+                        else if(Crd[i,j].Tag != "Mine")
+                        {
+                            Lx = originX;
+                            Ly = originY;
+                        }
+
+                        if (Crd[i,j].Tag != "Mine")
+                        {
+                            MineFound = true;
+                            Crd[Lx, Ly].Image = Properties.Resources.FlagIcon;
+                        }
+                    }
+                }
+            }
+
+            if (!MineFound && Looped)
+            {
+                pictureBox.Image = Properties.Resources.IconOK;
+                MineSearchBeta(originX, originY - 1, pictureBox);
             }
         }
     }
