@@ -21,6 +21,7 @@ namespace T16
         private PictureBox[,] Crd = new PictureBox[16, 16];
         private int[,] Num = new int[16, 16];
         private bool gameover = false;
+        private bool originFound = false;
         private int Nest;
         public Form1()
         {
@@ -63,7 +64,7 @@ namespace T16
                     ynameS = yname.ToString();
 
 
-                    name = ynameS + xnameS;
+                    name = xnameS + ynameS ;
 
                     CreatePicturebox(name, x, y, Properties.Resources.Icon, xname, yname);
 
@@ -324,7 +325,19 @@ namespace T16
                 if (origin.Tag != "ok")
                 {
                     origin.Image = Properties.Resources.IconOK;
-                    MineSearchBeta(originX, originY, origin);
+                    MineSearchBeta(originX, originY, Crd[originX, originY]);
+                    if (!originFound)
+                    {
+                        MineSearchBeta(originX, originY - 1, Crd[originX, originY - 1]);
+                        MineSearchBeta(originX + 1, originY - 1, Crd[originX + 1, originY - 1]);
+                        MineSearchBeta(originX, originY + 1, Crd[originX, originY + 1]);
+                        MineSearchBeta(originX + 1, originY + 1, Crd[originX + 1, originY + 1]);
+                        MineSearchBeta(originX + 1, originY, Crd[originX + 1, originY]);
+                        MineSearchBeta(originX + 1, originY - 1, Crd[originX + 1, originY - 1]);
+                        MineSearchBeta(originX - 1, originY, Crd[originX - 1, originY]);
+                        MineSearchBeta(originX - 1, originY - 1, Crd[originX - 1, originY - 1]);
+                    }
+                    originFound = false;
                 }
             }
 
@@ -876,41 +889,78 @@ namespace T16
 
         private void MineSearchBeta(int originX, int originY, PictureBox pictureBox)
         {
-            int Lx = 0, Ly = 0;
+            
             bool MineFound = false;
-            bool Looped = false;
             if (originX > 0 || originX < 15 || originY < 0 || originX < 15)
             {
-                Looped = true;
-                for (int i = originX - 1; i <= originX + 1 ; i++)
-                {
-                    for (int j = originY - 1; j <= originY + 1; j++)
-                    {
-                        if (Lx != 0 && Ly != 0 && Crd[i,j].Tag != "Mine")
-                        {
-                            Lx = i;
-                            Ly = j;
-                        }
-                        else if(Crd[i,j].Tag != "Mine")
-                        {
-                            Lx = originX;
-                            Ly = originY;
-                        }
 
-                        if (Crd[i,j].Tag != "Mine")
+                if (Crd[originX,originY].Tag != "Mine")
+                {
+                    if (Num[originX, originY] > 0)
+                    {
+                        originFound = true;
+                        Crd[originX, originY].Image = Properties.Resources.FlagIcon;
+                    }
+
+                    for (int i = originX - 1; i <= originX + 1 && !originFound; i++)
+                    {
+                        for (int j = originY - 1; j <= originY + 1 && !originFound; j++)
                         {
-                            MineFound = true;
-                            Crd[Lx, Ly].Image = Properties.Resources.FlagIcon;
+
+
+                            if (Num[i, j] > 0 && Crd[i, j].Tag != "Mine" && !originFound)
+                            {
+                                MineFound = true;
+                                Crd[i, j].Image = Properties.Resources.FlagIcon;
+                            }
+                            else
+                            {
+                                Crd[i, j].Image = Properties.Resources.IconOK;
+                            }
                         }
                     }
-                }
+
+
+                }   
             }
 
-            if (!MineFound && Looped)
+            /*if (originX > 0 || originX < 15 || originY < 0 || originX < 15)
             {
-                pictureBox.Image = Properties.Resources.IconOK;
-                MineSearchBeta(originX, originY - 1, pictureBox);
-            }
+
+                if (Crd[originX, originY].Tag != "Mine")
+                {
+                    if (Num[originX, originY] > 0)
+                    {
+                        originFound = true;
+                        Crd[originX, originY].Image = Properties.Resources.FlagIcon;
+                    }
+
+                    for (int i = originX - 1; i <= originX + 1 && !originFound; i++)
+                    {
+                        for (int j = originY - 1; j <= originY + 1 && !originFound; j++)
+                        {
+
+
+                            if (Num[i, j] > 0 && Crd[i, j].Tag != "Mine" && !originFound)
+                            {
+                                MineFound = true;
+                                Crd[i, j].Image = Properties.Resources.FlagIcon;
+                            }
+                            else
+                            {
+                                Crd[i, j].Image = Properties.Resources.IconOK;
+                            }
+                        }
+                    }
+
+
+                }
+            }*/
+        }
+
+        private void MineTester()
+        {
+
         }
     }
 }
