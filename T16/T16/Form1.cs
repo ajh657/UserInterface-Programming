@@ -36,7 +36,6 @@ namespace T16
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void CreatePicturebox(string name, int x, int y, Image image, int crdX, int crdY)
@@ -402,19 +401,6 @@ namespace T16
                 if (Crd[x, y - 1].Tag != "Mine") Crd[x, y - 1].Tag = Num[x, y - 1].ToString();
                 if (Crd[x - 1, y - 1].Tag != "Mine") Crd[x - 1, y - 1].Tag = Num[x - 1, y - 1].ToString();
             }
-        }
-
-        private void test(int originX, int originY, PictureBox pictureBox)
-        {
-
-            for (int x = originX - 1; x >= originX + 1;)
-            {
-                for (int Y = originY - 1; Y >= originY + 1;)
-                {
-
-                }
-            }
-
         }
 
         private void MineTest(PictureBox origin)
@@ -793,11 +779,6 @@ namespace T16
                 MessageBox.Show("gameover");
                 Application.Exit();
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
