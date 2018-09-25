@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T16", "T16\T16.csproj", "{A18E81E1-B994-4656-838A-919E786B6C65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T16.Tests", "T16.Tests\T16.Tests.csproj", "{43D17B83-F244-45A9-A3DA-4CC431ECC897}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,11 +17,24 @@ Global
 		{A18E81E1-B994-4656-838A-919E786B6C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A18E81E1-B994-4656-838A-919E786B6C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A18E81E1-B994-4656-838A-919E786B6C65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43D17B83-F244-45A9-A3DA-4CC431ECC897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43D17B83-F244-45A9-A3DA-4CC431ECC897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43D17B83-F244-45A9-A3DA-4CC431ECC897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43D17B83-F244-45A9-A3DA-4CC431ECC897}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0C47214A-725A-4F8C-9FEF-5540DA5D1BFE}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

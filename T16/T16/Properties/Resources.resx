@@ -124,8 +124,32 @@
   <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconEight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconEight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconFive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconFive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconFour" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconFour.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="IconOK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconOK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconSeven" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconSeven.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconSIX" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconSIX.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconThree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconThree.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconTwo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconTwo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MineIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
